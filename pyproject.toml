@@ -22,9 +22,6 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "flake8",
-    "isort",
-    "pydocstyle",
     "pytest",
     "pytest-cov",
 ]
@@ -39,3 +36,20 @@ path = "oidckit/__init__.py"
 include = [
     "/oidckit",
 ]
+
+[tool.ruff.lint]
+ignore = [
+    "E501",
+]
+select = [
+    "B",
+    "COM",
+    "E",
+    "F",
+    "I",
+    "TID",
+    "W",
+]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
