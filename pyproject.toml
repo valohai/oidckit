@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "oidckit"
+dynamic = ["version"]
+description = "Unobtrusive pluggable OpenID Connect"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.6"
+authors = [
+    { name = "Valohai" },
+]
+maintainers = [
+    { name = "Aarni Koskela", email = "akx@iki.fi" },
+]
+dependencies = [
+    "josepy>=1.2.0",
+    "requests",
+]
+
+[project.optional-dependencies]
+dev = [
+    "flake8",
+    "isort",
+    "pydocstyle",
+    "pytest",
+    "pytest-cov",
+]
+
+[project.urls]
+Homepage = "https://github.com/valohai/oidckit"
+
+[tool.hatch.version]
+path = "oidckit/__init__.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/oidckit",
+]
