@@ -4,9 +4,9 @@ from urllib.parse import urlencode
 from oidckit.crypto import get_random_string
 from oidckit.excs import OIDCError
 from oidckit.objects import (
-    AuthenticationState,
-    AuthenticationResult,
     AuthenticationRequest,
+    AuthenticationResult,
+    AuthenticationState,
 )
 from oidckit.provider import OIDCProvider
 
@@ -24,7 +24,9 @@ def build_authentication_request(
         state = get_random_string(state_size)
 
     params = provider.build_authentication_request_params(
-        request=request, redirect_uri=redirect_uri, state=state
+        request=request,
+        redirect_uri=redirect_uri,
+        state=state,
     )
     if nonce_size > 0:
         nonce = get_random_string(nonce_size)
@@ -35,7 +37,9 @@ def build_authentication_request(
     return AuthenticationRequest(
         redirect_url=f"{provider.config.op_authorization_endpoint}?{(urlencode(params))}",
         auth_state=AuthenticationState(
-            nonce=nonce, state=state, redirect_uri=redirect_uri
+            nonce=nonce,
+            state=state,
+            redirect_uri=redirect_uri,
         ),
     )
 
@@ -58,11 +62,14 @@ def process_callback_data(
         raise OIDCError("Unexpected state code.")
 
     token_payload = provider.build_token_request_payload(
-        code=code, auth_state=auth_state
+        code=code,
+        auth_state=auth_state,
     )
     token = provider.retrieve_token(token_payload)
     auth_result = AuthenticationResult(
-        provider=provider, auth_state=auth_state, token=token
+        provider=provider,
+        auth_state=auth_state,
+        token=token,
     )
     if verify:
         auth_result.decode_id_token()

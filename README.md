@@ -6,7 +6,7 @@ Unobtrusive pluggable OpenID Connect consumer toolkit
 Usage
 -----
 
-Construct a configuration class and a client class. 
+Construct a configuration class and a client class.
 This example is for [Microsoft Identity Platform / Azure AD 2.0](https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-protocols) OIDC flows, based on [the published OIDC configuration](https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration).
 For other providers, you may wish to also override some of the `Provider` functions.
 
@@ -62,7 +62,7 @@ Congratulations! If everything went fine, `auth_resp` will contain token data fr
 You can use this – according to the instructions of the IDP, of course – to sign up an user, log them in, etc.
 
 For instance, for MSIP, [`auth_resp.decode_id_token()['sub']` will contain an identifier](https://docs.microsoft.com/en-gb/azure/active-directory/develop/id-tokens)
- uniquely identifying the user (for your application!). 
+ uniquely identifying the user (for your application!).
 
 Acknowledgements
 ----------------
