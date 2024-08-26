@@ -16,5 +16,7 @@ class RemoteError(requests.RequestException, OIDCError):
             response.raise_for_status()
         except requests.HTTPError as he:
             raise cls(
-                he.response.text, request=he.request, response=he.response
+                he.response.text,
+                request=he.request,
+                response=he.response,
             ) from he

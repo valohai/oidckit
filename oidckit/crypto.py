@@ -7,7 +7,10 @@ from oidckit.excs import OIDCError
 
 
 def decode_jws(
-    payload: bytes, key: dict, expected_algorithm: str, verify: bool = True
+    payload: bytes,
+    key: dict,
+    expected_algorithm: str,
+    verify: bool = True,
 ) -> dict:
     jws = JWS.from_compact(payload)
     if verify:
@@ -18,7 +21,7 @@ def decode_jws(
 
         if alg != expected_algorithm:
             raise OIDCError(
-                f"Algorithm mismatch: offered {alg} is not expected {expected_algorithm}"
+                f"Algorithm mismatch: offered {alg} is not expected {expected_algorithm}",
             )
 
         jwk = JWK.from_json(key)
@@ -40,7 +43,7 @@ def get_key_from_keyset_json(keyset_json: dict, token: bytes) -> dict:
         jwk_alg = jwk.get("alg")
         if jwk_alg and jwk_alg != expected_alg:
             raise OIDCError(
-                f"kid {header.kid} has alg {jwk_alg}, was expecting {header.alg}"
+                f"kid {header.kid} has alg {jwk_alg}, was expecting {header.alg}",
             )
         return jwk
     raise OIDCError(f"Keyset has no matching key for kid {expected_kid}.")

@@ -1,4 +1,4 @@
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 if TYPE_CHECKING:
     from oidckit.provider import OIDCProvider
@@ -47,7 +47,8 @@ class AuthenticationResult:
     def decode_id_token(self) -> dict:
         if not self._decoded_id_token:
             self._decoded_id_token = self.provider.decode_token(
-                self.id_token, nonce=self.auth_state.nonce
+                self.id_token,
+                nonce=self.auth_state.nonce,
             )
         return self._decoded_id_token
 
@@ -64,7 +65,9 @@ class AuthenticationResult:
         """
         if not self._decoded_access_token:
             self._decoded_access_token = self.provider.decode_token(
-                self.access_token, nonce=self.auth_state.nonce, verify=verify
+                self.access_token,
+                nonce=self.auth_state.nonce,
+                verify=verify,
             )
         return self._decoded_access_token
 

@@ -3,9 +3,9 @@ from typing import Optional
 
 import requests
 
-from oidckit.excs import OIDCError, RemoteError
 from oidckit.crypto import decode_jws, get_key_from_keyset_json
-from oidckit.objects import AuthenticationState, AuthenticationResult
+from oidckit.excs import OIDCError, RemoteError
+from oidckit.objects import AuthenticationResult, AuthenticationState
 
 
 class OIDCProviderConfiguration:
@@ -40,7 +40,11 @@ class OIDCProvider:
         self.session.close()
 
     def build_authentication_request_params(
-        self, *, redirect_uri: str, state: str, request=None
+        self,
+        *,
+        redirect_uri: str,
+        state: str,
+        request=None,
     ) -> dict:
         return {
             "client_id": self.config.rp_client_id,
@@ -51,7 +55,10 @@ class OIDCProvider:
         }
 
     def build_token_request_payload(
-        self, *, code: str, auth_state: AuthenticationState
+        self,
+        *,
+        code: str,
+        auth_state: AuthenticationState,
     ):
         return {
             "client_id": self.config.rp_client_id,
@@ -74,7 +81,8 @@ class OIDCProvider:
                     RemoteError.raise_from_status(response)
                     self._jwks_data = response.json()
                 return get_key_from_keyset_json(
-                    keyset_json=self._jwks_data, token=token
+                    keyset_json=self._jwks_data,
+                    token=token,
                 )
         raise NotImplementedError("No idea how to get token key – subclass, please")
 
@@ -87,7 +95,10 @@ class OIDCProvider:
         )
 
     def decode_token(
-        self, token: str, nonce: Optional[str] = None, verify: bool = True
+        self,
+        token: str,
+        nonce: Optional[str] = None,
+        verify: bool = True,
     ) -> dict:
         token = str(token).encode("utf-8")
         key = self.retrieve_token_key(token)
@@ -97,7 +108,7 @@ class OIDCProvider:
             token_nonce = payload.get("nonce")
             if nonce != token_nonce:
                 raise OIDCError(
-                    f"Token nonce mismatch – expected {nonce}, got {token_nonce}"
+                    f"Token nonce mismatch – expected {nonce}, got {token_nonce}",
                 )
         return payload
 
