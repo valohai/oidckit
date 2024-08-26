@@ -8,7 +8,7 @@ dynamic = ["version"]
 description = "Unobtrusive pluggable OpenID Connect"
 readme = "README.md"
 license = "MIT"
-requires-python = ">=3.6"
+requires-python = ">=3.10"
 authors = [
     { name = "Valohai" },
 ]
