@@ -16,7 +16,7 @@ maintainers = [
     { name = "Aarni Koskela", email = "akx@iki.fi" },
 ]
 dependencies = [
-    "josepy>=1.2.0",
+    "josepy>=2.0.0",
     "requests",
 ]
 
